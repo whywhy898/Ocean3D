@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ocean.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Ocean.Api.Controllers.AccountController">
+            <summary>
+            账户信息
+            </summary>
+        </member>
+        <member name="M:Ocean.Api.Controllers.AccountController.RegisterAccount(Ocean.Application.ViewModel.RegisterUserDto)">
+            <summary>
+            注册新用户
+            </summary>
+            <param name="register"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ocean.Api.Controllers.AccountController.GetCurrentUserInfo">
+            <summary>
+            获取当前登录用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Ocean.Api.Controllers.HomeController">
+            <summary>
+            系统主配置
+            </summary>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HomeController.Login(Ocean.Application.ViewModel.LoginUserDto)">
+            <summary>
+            系统登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HomeController.RefreshToken">
+            <summary>
+            刷新Token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Ocean.Api.Controllers.HostilityController">
+            <summary>
+            仇恨人员
+            </summary>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HostilityController.GetHostilityInfo(Ocean.Application.ViewModel.QueryHostilityDto)">
+            <summary>
+            获取所有的仇恨信息
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HostilityController.SetSurpuass(System.String)">
+            <summary>
+            设置战胜对手
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HostilityController.CreateHostilityInfo(Ocean.Application.ViewModel.CreateHostilityDto)">
+            <summary>
+            创建仇恨人员信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ocean.Api.Controllers.HostilityController.HistoryInfo(System.Guid)">
+            <summary>
+            获取事件历史信息
+            </summary>
+            <param name="eventId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Ocean.Api.Infrastructure.Midderware.CustomExceptionMiddleware">
+            <summary>
+            全局异常处理中间件
+            </summary>
+        </member>
+    </members>
+</doc>
