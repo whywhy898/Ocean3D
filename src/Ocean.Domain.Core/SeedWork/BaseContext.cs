@@ -21,6 +21,7 @@ namespace Ocean.Domain.Core.SeedWork
             _mediator = mediator;
         }
 
+        #region 事务
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
         public bool HasActiveTransaction => _currentTransaction != null;
 
@@ -73,7 +74,13 @@ namespace Ocean.Domain.Core.SeedWork
                 }
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Entity Framework 提交
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             //执行领域事件

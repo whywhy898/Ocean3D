@@ -26,7 +26,7 @@ namespace Ocean.Application.Services
 
         public async Task<UserInfoDto> GetCurrentUse(string Id)
         {
-            using (var connect = new SqlConnection(_configuration.GetConnectionString("MsSqlServer")))
+            using (var connect = DapperHandle.OpenConnection())
             {
                 var sql = $"select * from SystemUser where Id=@id";
 

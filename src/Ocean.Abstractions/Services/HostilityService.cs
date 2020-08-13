@@ -1,43 +1,38 @@
-﻿using Ocean.Application.Interface;
-using Ocean.Application.ViewModel;
-using Ocean.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
-using Ocean.Domain.Hostility.Command;
-using Ocean.Domain.Core.Bus;
-using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Dapper;
 using Ocean.Application.Dapper;
 using Ocean.Application.EventSourcing;
+using Ocean.Application.Interface;
+using Ocean.Application.ViewModel;
+using Ocean.Domain.Core.Bus;
+using Ocean.Domain.Hostility.Command;
+using Ocean.Domain.Repository;
 using Ocean.Infrastructure.Repositorys.store;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Ocean.Application.Services
 {
-  public class HostilityService : IHostilityService
+    public class HostilityService : IHostilityService
     {
 
         private IMediatorHandler _mediatR;
-        private IConfiguration _configuration;
         private IEventStoreRepository _eventStoreRepository;
         private IHostilityRepository _hostilityRepository;
 
-
         public HostilityService(
             IHostilityRepository hostilityRepository,IMediatorHandler mediatR
-            ,IConfiguration configuration, IEventStoreRepository eventStoreRepository) {
+            ,IEventStoreRepository eventStoreRepository
+            ) {
+
             _mediatR = mediatR;
             _eventStoreRepository = eventStoreRepository;
-            _configuration = configuration;
             _hostilityRepository = hostilityRepository;
         }
         public async Task<List<HostilityListDto>> GetAllHostility(QueryHostilityDto dto)
         {
-            using (var connection = new SqlConnection(_configuration.GetConnectionString("MsSqlServer")))
+            using (var connection = DapperHandle.OpenConnection())
             {
                 var sqlstr = @"select HostilityId,QQNumber,HostilityName,RoleLevel,
                                MilitaryPower,HostilityLevel,IsSurpass,Remark,CreateTime 

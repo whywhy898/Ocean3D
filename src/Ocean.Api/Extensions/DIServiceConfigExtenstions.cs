@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Ocean.Api.AppData;
 using Ocean.Api.Infrastructure.Services;
+using Ocean.Application.Dapper;
 using System;
 using System.Linq;
 
@@ -34,6 +35,7 @@ namespace Ocean.Api.Extensions
 
             //注入当前请求上下文
             services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+
 
             //跨域配置
             services.AddCors(options =>

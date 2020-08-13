@@ -47,23 +47,6 @@ namespace Ocean.Infrastructure.EntityMapping
                 .HasColumnName("Remark")
                 .HasColumnType("varchar(1000)");
 
-            builder.Property(a => a.CreateTime)
-                .HasColumnName("CreateTime")
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("getdate()");
-
-            builder.Property(a => a.CreateBy)
-                .HasColumnName("CreateBy")
-                .HasColumnType("varchar(50)");
-
-            builder.Property(a => a.UpdateBy)
-                .HasColumnName("UpdateBy")
-                .HasColumnType("varchar(50)");
-
-            builder.Property(a => a.UpdateTime)
-                .HasColumnName("UpdateTime")
-                .HasColumnType("datetime");
-
         }
     }
 }

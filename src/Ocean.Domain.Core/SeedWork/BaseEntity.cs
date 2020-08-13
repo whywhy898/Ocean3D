@@ -25,6 +25,25 @@ namespace Ocean.Domain.Core.SeedWork
             }
         }
 
+  
+        #region 领域事件操作
+        private List<Event> _domainEvents;  //存储领域事件集合
+        public IReadOnlyCollection<Event> DomainEvents => _domainEvents?.AsReadOnly();
+        public void AddDomainEvent(Event eventItem) //添加领域事件到集合
+        {
+            _domainEvents = _domainEvents ?? new List<Event>();
+            _domainEvents.Add(eventItem);
+        }
+        public void RemoveDomainEvent(Event eventItem) //删除领域事件
+        {
+            _domainEvents?.Remove(eventItem);
+        }
+        public void ClearDomainEvents() //清除所有的领域事件
+        {
+            _domainEvents?.Clear();
+        }
+        #endregion
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -41,29 +60,6 @@ namespace Ocean.Domain.Core.SeedWork
         /// 修改人
         /// </summary>
         public string UpdateBy { get; protected set; }
-
-        #region 领域事件操作
-        private List<Event> _domainEvents;
-        public IReadOnlyCollection<Event> DomainEvents => _domainEvents?.AsReadOnly();
-
-        public void AddDomainEvent(Event eventItem)
-        {
-            _domainEvents = _domainEvents ?? new List<Event>();
-            _domainEvents.Add(eventItem);
-        }
-
-        public void RemoveDomainEvent(Event eventItem)
-        {
-            _domainEvents?.Remove(eventItem);
-        }
-
-        public void ClearDomainEvents()
-        {
-            _domainEvents?.Clear();
-        }
-
-        #endregion
-
 
         public bool IsTransient()
         {
