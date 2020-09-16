@@ -8,5 +8,7 @@ namespace Ocean.Application.ViewModel
     {
         public int PageNum { get; set; }
         public int CurrentPage { get; set; }
+        public string Sort { get; set; }
+        public string Order { get; set; }
     }
 }

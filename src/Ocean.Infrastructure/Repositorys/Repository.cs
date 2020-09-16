@@ -94,7 +94,12 @@ namespace Ocean.Infrastructure.Repositorys
 
         public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null)
         {
-            return  dataSet.AsNoTracking();
+            return (where == null ? dataSet : dataSet.Where(where));
+        }
+
+        public IQueryable<TEntity> GetAllAsNoTracking(Expression<Func<TEntity, bool>> where = null)
+        {
+            return (where == null ? dataSet.AsNoTracking() : dataSet.Where(where).AsNoTracking()); 
         }
 
         public TEntity GetSingle(KeyT key)

@@ -56,12 +56,11 @@ namespace Ocean.Api
 
             app.UseCustomExceptionMiddleware();
 
-            app.UseAuthentication();
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("AllowAllOrigins");
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(options =>

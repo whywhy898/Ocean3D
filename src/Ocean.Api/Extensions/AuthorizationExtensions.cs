@@ -12,14 +12,10 @@ namespace Ocean.Api.Extensions
     {
         public static IServiceCollection AddCustromAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
-            var authoriztion=configuration.GetValue<bool>("Switch:IsOpenAuthorization");
-
-            if (authoriztion) {
-                services.AddAuthorization(options =>
-                {
-                    options.AddPolicy("refresh", policy => policy.RequireClaim(JwtClaimTypes.JwtId, "refresh"));
-                });
-            }
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("refresh", policy => policy.RequireClaim(JwtClaimTypes.JwtId, "refresh"));
+            });
             return services;
         }
     }

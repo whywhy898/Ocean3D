@@ -26,7 +26,7 @@ namespace Ocean.Api.Infrastructure.Midderware
         {
             try
             {
-                await _next(context).ConfigureAwait(false);
+                await _next(context);
             }
             catch (Exception e)
             {
@@ -36,7 +36,7 @@ namespace Ocean.Api.Infrastructure.Midderware
                     statusCode = 200;
                 }
                 _logger.LogError("\r\n" + context.Request.Path.Value + "\r\n" + e.Message.ToString() + "\r\n" + e.StackTrace);
-                await HandleExceptionAsync(context, statusCode, e.Message).ConfigureAwait(true);
+                await HandleExceptionAsync(context, statusCode, e.Message);
             }
             finally
             {
@@ -64,7 +64,7 @@ namespace Ocean.Api.Infrastructure.Midderware
                 {
                     _logger.LogError(context.Request.Path.Value + "\r\n" + msg);
 
-                    await HandleExceptionAsync(context, statusCode, msg).ConfigureAwait(true);
+                    await HandleExceptionAsync(context, statusCode, msg);
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Ocean.Api.Infrastructure.Midderware
             var result = JsonSerializer.Serialize(data);
             context.Response.ContentType = "application/json;charset=utf-8";
 
-            await context.Response.WriteAsync(result).ConfigureAwait(true);
+            await context.Response.WriteAsync(result);
         }
     }
     

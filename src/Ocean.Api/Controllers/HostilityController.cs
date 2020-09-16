@@ -29,7 +29,7 @@ namespace Ocean.Api.Controllers
         [HttpGet("GetHostilityInfo")]
         public async Task<ActionResult> GetHostilityInfo([FromQuery]QueryHostilityDto dto)
         {
-            return Ok(await _hostilityService.GetAllHostility(dto).ConfigureAwait(false));
+            return Ok(await _hostilityService.GetAllHostility(dto));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Ocean.Api.Controllers
         [HttpPost("SetSurpuass")]
         public async Task<ActionResult> SetSurpuass([FromHeader(Name = "x-requestid")]string Id)
         {
-            await _hostilityService.SetSurpass(Id).ConfigureAwait(false);
+            await _hostilityService.SetSurpass(Id);
 
             return Ok(true);
         }
@@ -52,7 +52,7 @@ namespace Ocean.Api.Controllers
         [HttpPost("CreateHostilityInfo")]
         public async Task<ActionResult> CreateHostilityInfo([FromBody] CreateHostilityDto model)
         {
-            await _hostilityService.AddHostilityInfo(model).ConfigureAwait(false);
+            await _hostilityService.AddHostilityInfo(model);
             return Ok(true);
         }
 
@@ -64,7 +64,7 @@ namespace Ocean.Api.Controllers
         [HttpGet("HistoryInfo")]
         public async Task<ActionResult> HistoryInfo([FromQuery]Guid eventId)
         {
-            return Ok(await _hostilityService.GetHistory(eventId).ConfigureAwait(false));
+            return Ok(await _hostilityService.GetHistory(eventId));
         }
 
     }
