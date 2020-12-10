@@ -7,7 +7,7 @@ namespace Ocean.Api.Extensions
     public static class SerilogExtenstions
     {
 
-        public static LoggerConfiguration CreateLogConfig(this LoggerConfiguration config, Serilog options)
+        public static LoggerConfiguration CreateLogConfig(this LoggerConfiguration config, SerilogAisst options)
         {
 
             string LogFilePath(string LogEvent) => string.Format(options.Path, LogEvent);
@@ -42,7 +42,7 @@ namespace Ocean.Api.Extensions
     }
 
 
-    public class Serilog
+    public class SerilogAisst
     {
         public string Path { get; set; }
 

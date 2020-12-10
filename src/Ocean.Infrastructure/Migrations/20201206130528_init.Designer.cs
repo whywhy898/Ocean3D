@@ -10,7 +10,7 @@ using Ocean.Infrastructure.Context;
 namespace Ocean.Infrastructure.Migrations
 {
     [DbContext(typeof(EFDbContext))]
-    [Migration("20200811015304_init")]
+    [Migration("20201206130528_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,14 +55,10 @@ namespace Ocean.Infrastructure.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("CreateBy")
-                        .HasColumnName("CreateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("CreateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("CreateTime")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("HostilityLevel")
                         .HasColumnType("nvarchar(max)");
@@ -95,11 +91,9 @@ namespace Ocean.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateBy")
-                        .HasColumnName("UpdateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("UpdateTime")
-                        .HasColumnName("UpdateTime")
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");
@@ -138,7 +132,7 @@ namespace Ocean.Infrastructure.Migrations
 
                     b.Property<string>("CreateBy")
                         .HasColumnName("CreateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("CreateTime")
                         .ValueGeneratedOnAdd()
@@ -152,7 +146,7 @@ namespace Ocean.Infrastructure.Migrations
 
                     b.Property<string>("UpdateBy")
                         .HasColumnName("UpdateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnName("UpdateTime")
@@ -161,6 +155,41 @@ namespace Ocean.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SystemRole");
+                });
+
+            modelBuilder.Entity("Ocean.Domain.Model.TaskSchedule.Entity.TaskJob", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnName("TaskId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("TaskCron")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskGroup")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskSchedule");
                 });
 
             modelBuilder.Entity("Ocean.Domain.Model.User.Entity.User", b =>
@@ -175,14 +204,10 @@ namespace Ocean.Infrastructure.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("CreateBy")
-                        .HasColumnName("CreateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("CreateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("CreateTime")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("EmadilAddress")
                         .HasColumnName("EmadilAddress")
@@ -215,11 +240,9 @@ namespace Ocean.Infrastructure.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("UpdateBy")
-                        .HasColumnName("UpdateBy")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("UpdateTime")
-                        .HasColumnName("UpdateTime")
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");

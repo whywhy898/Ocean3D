@@ -5,15 +5,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Ocean.Api.AppData;
 using Ocean.Api.Infrastructure.Services;
+using Ocean.Api.Infrastructure.TaskScheduler;
 using Ocean.Application.Dapper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Ocean.Api.Extensions
 {
     public static class DIServiceConfigExtenstions
     {
-        public static IServiceCollection AddDIServiceConfig(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDIServiceConfig(this IServiceCollection services,IConfiguration configuration)
         {
             var assemblys = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Ocean", StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -36,6 +38,8 @@ namespace Ocean.Api.Extensions
             //注入当前请求上下文
             services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 
+            //注入定时任务所需的配置
+            services.Configure<List<JobWorkConfig>>(configuration?.GetSection("TaskSchedule"));
 
             //跨域配置
             services.AddCors(options =>

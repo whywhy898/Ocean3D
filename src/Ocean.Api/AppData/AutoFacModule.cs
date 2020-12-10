@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using FluentValidation;
 using MediatR;
+using Ocean.Api.Infrastructure.TaskScheduler.Jobs;
 using Ocean.Domain.Core.Bus;
 using Ocean.Domain.Core.Events;
 using Ocean.Domain.Hostility.Command;
@@ -14,6 +15,7 @@ using Ocean.Domain.Validations;
 using Ocean.Infrastructure.Behaviors;
 using Ocean.Infrastructure.EventBus;
 using Ocean.Infrastructure.Repositorys.store;
+using Quartz;
 
 namespace Ocean.Api.AppData
 {
@@ -37,6 +39,11 @@ namespace Ocean.Api.AppData
             //注入所有的command指令验证类
             builder.RegisterAssemblyTypes(typeof(CreateHotilityVaildate).GetTypeInfo().Assembly)
                    .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
+                   .AsImplementedInterfaces();
+
+            //注入所有的定时任务
+            builder.RegisterAssemblyTypes(typeof(MyTaskJob).GetTypeInfo().Assembly)
+                   .As(typeof(IJob))
                    .AsImplementedInterfaces();
 
             //注入command指令管道

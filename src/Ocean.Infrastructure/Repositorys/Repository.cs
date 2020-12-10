@@ -14,7 +14,7 @@ using Z.EntityFramework.Plus;
 
 namespace Ocean.Infrastructure.Repositorys
 {
-   public class Repository<TEntity, KeyT> : IRepository<TEntity, KeyT> where TEntity : BaseEntity<KeyT> where KeyT:class
+   public class Repository<TEntity, KeyT> : IRepository<TEntity, KeyT> where TEntity : BaseEntity<KeyT>
     {
         private readonly EFDbContext _context;
         private DbSet<TEntity> dataSet => _context.Set<TEntity>();

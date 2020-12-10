@@ -17,3 +17,9 @@ dotnet_diagnostic.CA1305.severity = none
 
 # CA2007: 考虑对等待的任务调用 ConfigureAwait
 dotnet_diagnostic.CA2007.severity = none
+
+# IDE0058: 永远不会使用表达式值
+csharp_style_unused_value_expression_statement_preference = discard_variable:none
+
+# CA2000: 丢失范围之前释放对象
+dotnet_diagnostic.CA2000.severity = none

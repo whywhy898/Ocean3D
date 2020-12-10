@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Ocean.Domain.Core.SeedWork
 {
-   public class BaseEntity<KeyT> where KeyT:class
+   public class BaseEntity<KeyT> 
     {
         int? _requestedHashCode;
         KeyT _Id;
@@ -87,7 +87,7 @@ namespace Ocean.Domain.Core.SeedWork
             if (item.IsTransient() || this.IsTransient())
                 return false;
             else
-                return item.Id == this.Id;
+                return item.Id.Equals(this.Id);
         }
 
         /// <summary>

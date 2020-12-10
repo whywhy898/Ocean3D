@@ -29,8 +29,9 @@ namespace Ocean.Api.AppData
                 objectResult.Value = result;
                 objectResult.DeclaredType = objectResult.Value.GetType();
             }
-
-            await next().ConfigureAwait(false);
+            if (next == null)
+                throw new ArgumentNullException(nameof(next));
+            await next();
         }
     }
 }

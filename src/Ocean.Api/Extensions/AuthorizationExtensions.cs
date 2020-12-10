@@ -10,7 +10,7 @@ namespace Ocean.Api.Extensions
 {
     public static class AuthorizationExtensions
     {
-        public static IServiceCollection AddCustromAuthorization(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddCustromAuthorization(this IServiceCollection services)
         {
             services.AddAuthorization(options =>
             {

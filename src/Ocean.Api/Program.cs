@@ -22,7 +22,7 @@ namespace Ocean.Api
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog((hostingContext, builder) =>
                     {
-                        var serilog = new Ocean.Api.Extensions.Serilog();
+                        var serilog = new Ocean.Api.Extensions.SerilogAisst();
                         hostingContext.Configuration.GetSection("Serilog").Bind(serilog);
                         builder.CreateLogConfig(serilog);      
                     });

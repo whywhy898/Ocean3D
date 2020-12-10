@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ocean.Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,10 @@ namespace Ocean.Infrastructure.Migrations
                 columns: table => new
                 {
                     HostilityId = table.Column<string>(type: "varchar(50)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "getdate()"),
-                    CreateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     UpdateTime = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    UpdateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     QQNumber = table.Column<string>(type: "varchar(50)", nullable: false),
                     HostilityName = table.Column<string>(type: "varchar(50)", nullable: false),
                     RoleLevel = table.Column<int>(type: "int", nullable: false),
@@ -51,9 +51,9 @@ namespace Ocean.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(50)", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "getdate()"),
-                    CreateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    CreateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     UpdateTime = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    UpdateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     RoleName = table.Column<string>(type: "varchar(50)", nullable: true)
                 },
                 constraints: table =>
@@ -66,10 +66,10 @@ namespace Ocean.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(50)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "getdate()"),
-                    CreateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     UpdateTime = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateBy = table.Column<string>(type: "varchar(50)", nullable: true),
+                    UpdateBy = table.Column<string>(type: "varchar(100)", nullable: true),
                     Name = table.Column<string>(type: "varchar(50)", nullable: true),
                     Nick = table.Column<string>(type: "varchar(50)", nullable: false),
                     AccountName = table.Column<string>(type: "varchar(100)", nullable: false),
@@ -77,14 +77,33 @@ namespace Ocean.Infrastructure.Migrations
                     QQNumber = table.Column<string>(type: "varchar(20)", nullable: true),
                     Tel = table.Column<string>(type: "varchar(20)", nullable: true),
                     EmadilAddress = table.Column<string>(type: "varchar(100)", nullable: true),
-                    AddressProvince = table.Column<string>(nullable: true),
-                    AddressCity = table.Column<string>(nullable: true),
-                    AddressLocation = table.Column<string>(nullable: true),
+                    AddressProvince = table.Column<string>(type: "varchar(50)", nullable: true),
+                    AddressCity = table.Column<string>(type: "varchar(50)", nullable: true),
+                    AddressLocation = table.Column<string>(type: "varchar(50)", nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SystemUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaskSchedule",
+                columns: table => new
+                {
+                    TaskId = table.Column<string>(nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreateBy = table.Column<string>(type: "varchar(100)", nullable: true),
+                    UpdateTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    UpdateBy = table.Column<string>(type: "varchar(100)", nullable: true),
+                    TaskGroup = table.Column<string>(nullable: true),
+                    TaskName = table.Column<string>(nullable: true),
+                    TaskCron = table.Column<string>(nullable: true),
+                    TaskDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskSchedule", x => x.TaskId);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,6 +152,9 @@ namespace Ocean.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "SystemUserRoleRelation");
+
+            migrationBuilder.DropTable(
+                name: "TaskSchedule");
 
             migrationBuilder.DropTable(
                 name: "SystemRole");

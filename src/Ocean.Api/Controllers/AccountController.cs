@@ -8,7 +8,7 @@ using Ocean.Api.Infrastructure.Services;
 using Ocean.Application.Interface;
 using Ocean.Application.ViewModel;
 using Ocean.Infrastructure.JwtBreare;
-
+using Ocean.Infrastructure.Tools.Services;
 
 namespace Ocean.Api.Controllers
 {
@@ -21,10 +21,14 @@ namespace Ocean.Api.Controllers
     {
         private IUserService _userService;
         private IIdentityService  _identityService;
-        public AccountController(IUserService userService, IIdentityService identityService)
+        private readonly IServiceProvider _serviceProvider;
+
+        public AccountController(IUserService userService, 
+            IIdentityService identityService,IServiceProvider serviceProvider)
         {
             _userService = userService;
             _identityService = identityService;
+            _serviceProvider = serviceProvider;
         }
 
         /// <summary>

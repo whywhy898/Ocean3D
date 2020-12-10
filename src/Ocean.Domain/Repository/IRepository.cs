@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ocean.Domain.Repository
 {
-    public interface IRepository<TEntity,keyT> where TEntity : BaseEntity<keyT> where keyT:class
+    public interface IRepository<TEntity,keyT> where TEntity : BaseEntity<keyT> 
     {
         /// <summary>
         /// 工作单元 保持事务的一致性

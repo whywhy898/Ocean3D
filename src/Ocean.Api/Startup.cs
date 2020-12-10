@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Ocean.Api.AppData;
 using Ocean.Api.Extensions;
 using Ocean.Application.AutoMapper;
+using Ocean.Infrastructure.Tools.Services;
 
 namespace Ocean.Api
 {
@@ -26,9 +27,10 @@ namespace Ocean.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustromDbContext(Configuration)
-                .AddCustromJwtConfig(Configuration)
                 .AddDIServiceConfig(Configuration)
-                .AddCustromAuthorization(Configuration)
+                .AddCustromJwtConfig(Configuration)
+                .AddQiartzServiceConfig(Configuration)
+                .AddCustromAuthorization()
                 .AddCustromSwagger()
                 .AddCustromMvcConfig();
 
@@ -53,6 +55,7 @@ namespace Ocean.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            GlobalServiceProvider.serviceProvider = app?.ApplicationServices.CreateScope().ServiceProvider;
 
             app.UseCustomExceptionMiddleware();
 
