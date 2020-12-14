@@ -13,5 +13,7 @@ namespace Ocean.Application.Interface
         Task<(string UserName, string Id)> GetLoginInfo(LoginUserDto login);
 
         Task<UserInfoDto> GetCurrentUse(string Id);
+
+        ValueTask<int> GetProviderHash();
     }
 }

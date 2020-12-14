@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ocean.Application.Interface;
 using Quartz;
@@ -11,42 +12,43 @@ namespace Ocean.Api.Infrastructure.TaskScheduler
 {
     public abstract class JobWorker:IJob
     {
-        private readonly ILogger _logger;
-        private readonly IOptions<List<JobWorkConfig>> _taskconfigs;
-        private readonly ITaskScheduleService _taskScheduleService;
-
-        public JobWorker(ILogger logger,
-            IOptions<List<JobWorkConfig>> taskconfigs,
-            ITaskScheduleService taskScheduleService)
+        private readonly IServiceProvider _serviceProvider;
+        public JobWorker(IServiceProvider serviceProvider)
         {
-            _logger = logger;
-            _taskconfigs = taskconfigs;
-            _taskScheduleService = taskScheduleService;
+            _serviceProvider = serviceProvider;
         }
 
         public abstract Task DoWork();
 
         public async Task Execute(IJobExecutionContext context)
         {
-            try
+            using (var scope = _serviceProvider.CreateScope())
             {
-                await DoWork();
-                Task.WaitAll();
-                await RegWorkToDb();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("\r\n"+ex.Message.ToString()+"\r\n"+ex.StackTrace);
+                var _logger= _serviceProvider?.GetService(typeof(Logger<JobWorker>)) as ILogger;
+                try
+                {
+                    var provider = scope.ServiceProvider;
+                    await DoWork();
+                    Task.WaitAll();
+                    await RegWorkToDb(provider);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("\r\n" + ex.Message.ToString() + "\r\n" + ex.StackTrace);
+                }
             }
         }
 
-        public async Task RegWorkToDb()
+        public async Task RegWorkToDb(IServiceProvider serviceProvider)
         {
+            var taskScheduleService = serviceProvider?.GetService(typeof(ITaskScheduleService)) as ITaskScheduleService;
+            var taskconfigs = serviceProvider?.GetService(typeof(IOptions<List<JobWorkConfig>>)) as IOptions<List<JobWorkConfig>>;
+
             var jobType = this.GetType();
             var jobName = jobType.Name;
 
-            var config = _taskconfigs.Value.Where(a => a.TaskName == jobName).FirstOrDefault();
-            await _taskScheduleService.CreateOrUpdateTaskSchedule(config?.GroupName, config?.TaskName,config?.TriggerTime,config?.TaskDescription);
+            var config = taskconfigs.Value.Where(a => a.TaskName == jobName).FirstOrDefault();
+            await taskScheduleService.CreateOrUpdateTaskSchedule(config?.GroupName, config?.TaskName,config?.TriggerTime,config?.TaskDescription);
         }
     }
 }

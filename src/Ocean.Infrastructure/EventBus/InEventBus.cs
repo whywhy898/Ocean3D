@@ -35,9 +35,9 @@ namespace Ocean.Infrastructure.EventBus
             await _mediator.Publish(@event);
         }
 
-        public async Task SendCommand<T>(T command) where T : IBaseRequest
+        public async Task<object> SendCommand<T>(T command) where T : IBaseRequest
         {
-            await _mediator.Send(command);
+           return await _mediator.Send(command);
         }
     }
 }

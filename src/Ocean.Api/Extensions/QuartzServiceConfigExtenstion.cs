@@ -76,8 +76,8 @@ namespace Ocean.Api.Extensions
                        .WithIdentity(task.TaskName)
                        .ForJob(jobkey)
                        .StartNow()
-                       .WithSimpleSchedule(x=>x.WithInterval(TimeSpan.FromSeconds(60)).WithRepeatCount(0))
-                       //.WithCronSchedule(task.TriggerTime)
+                       //.WithSimpleSchedule(x=>x.WithInterval(TimeSpan.FromSeconds(60)).WithRepeatCount(0))
+                       .WithCronSchedule(task.TriggerTime)
                        .WithDescription(task.TaskDescription)
                     );
                 }

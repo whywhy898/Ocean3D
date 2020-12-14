@@ -11,24 +11,18 @@ namespace Ocean.Api.Infrastructure.TaskScheduler.Jobs
 {
     public class MyTaskJob:JobWorker
     {
-        private readonly ILogger<MyTaskJob> _logger;
         private readonly IServiceProvider _serviceProvider;
 
-        public MyTaskJob(ILogger<MyTaskJob> logger,
-            IOptions<List<JobWorkConfig>> taskconfigs,
-            ITaskScheduleService taskScheduleService,
-            IServiceProvider serviceProvider)
-            :base(logger, taskconfigs, taskScheduleService)
+        public MyTaskJob(IServiceProvider serviceProvider)
+            :base(serviceProvider)
         {
-            _logger = logger;
             _serviceProvider = serviceProvider;
         }
 
         public override async Task DoWork()
         {
-            var globalhash= GlobalServiceProvider.serviceProvider.GetHashCode();
             var servicehas = _serviceProvider.GetHashCode();
-            await Console.Out.WriteAsync($"当前容器hash值：{servicehas},父hash：{globalhash}");
+            await Console.Out.WriteAsync($"当前容器hash值：{servicehas}");
         }
     }
 }

@@ -11,6 +11,6 @@ namespace Ocean.Domain.Core.Bus
     {
         Task PublishEvent<T>(T @event) where T : Event;
 
-        Task SendCommand<T>(T command) where T : IBaseRequest;
+        Task<object> SendCommand<T>(T command) where T : IBaseRequest;
     }
 }

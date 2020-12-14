@@ -17,10 +17,12 @@ namespace Ocean.Application.Services
     public class UserService : IUserService
     {
         private IConfiguration _configuration;
+        private readonly IServiceProvider _serviceProvider;
         private IMediatorHandler _mediatR;
-        public UserService(IMediatorHandler mediatR, IConfiguration configuration)
+        public UserService(IMediatorHandler mediatR, IConfiguration configuration,IServiceProvider serviceProvider)
         {
             _configuration = configuration;
+            _serviceProvider = serviceProvider;
             _mediatR = mediatR;
         }
 
@@ -54,5 +56,13 @@ namespace Ocean.Application.Services
 
            await _mediatR.SendCommand(registerCommand);
         }
+
+
+        public async ValueTask<int> GetProviderHash()
+        {
+            var hash= _serviceProvider.GetHashCode();
+            return await new ValueTask<int>(hash);
+        }
+
     }
 }

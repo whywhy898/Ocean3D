@@ -41,11 +41,6 @@ namespace Ocean.Api.AppData
                    .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
                    .AsImplementedInterfaces();
 
-            //注入所有的定时任务
-            builder.RegisterAssemblyTypes(typeof(MyTaskJob).GetTypeInfo().Assembly)
-                   .As(typeof(IJob))
-                   .AsImplementedInterfaces();
-
             //注入command指令管道
             builder.RegisterGeneric(typeof(LoggingBehavior<,>)).As(typeof(IPipelineBehavior<,>));
             builder.RegisterGeneric(typeof(ValidatorBehavior<,>)).As(typeof(IPipelineBehavior<,>));

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Ocean.Application.Interface;
 using Ocean.Application.ViewModel;
 using Ocean.Infrastructure.JwtBreare;
-using Ocean.Infrastructure.Tools.Services;
 
 namespace Ocean.Api.Controllers
 {
@@ -21,14 +20,12 @@ namespace Ocean.Api.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private ITokenService _tokenService;
-        private IUserService _userService;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly ITokenService _tokenService;
+        private readonly IUserService _userService;
 
-        public HomeController(ITokenService tokenService, IUserService userService,IServiceProvider serviceProvider) {
+        public HomeController(ITokenService tokenService, IUserService userService) {
             _tokenService = tokenService;
             _userService = userService;
-            _serviceProvider = serviceProvider;
         }
       
         /// <summary>
@@ -61,13 +58,6 @@ namespace Ocean.Api.Controllers
         {
             var AccessToken= _tokenService.RefreshToken(HttpContext.User);
             return Ok(AccessToken);
-        }
-
-        [HttpGet("GetHash")]
-        public IActionResult GetHash()
-        {
-
-            return Ok($"当前请求管道hash:{_serviceProvider.GetHashCode()},父级别容器hash：{GlobalServiceProvider.serviceProvider.GetHashCode()}");
         }
 
     }
