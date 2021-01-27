@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Ocean.Application.ViewModel;
-using Ocean.Domain.Hostility.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Ocean.Domain.Hostility.Command;
 
 namespace Ocean.Application.AutoMapper
 {
@@ -11,7 +8,7 @@ namespace Ocean.Application.AutoMapper
     {
         public ViewModelToDomainProfile()
         {
-            CreateMap<HostilityEntity, HostilityListDto>();
+            CreateMap<CreateHostilityDto, AddHostilityCommand>();
         }
     }
 }

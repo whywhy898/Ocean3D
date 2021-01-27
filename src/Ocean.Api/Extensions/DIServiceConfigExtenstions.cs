@@ -29,7 +29,7 @@ namespace Ocean.Api.Extensions
                   .WithTransientLifetime()
             );
 
-            //注入MVC过去器
+            //注入MVC过虑器
             services.AddSingleton<IConfigureOptions<MvcOptions>, MvcOptionConfig>();
 
             //注入当前用户信息

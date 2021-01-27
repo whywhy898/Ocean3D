@@ -24,7 +24,7 @@ namespace Ocean.Api.Extensions
                           builder.AddFilter((category, level) =>
                                 category == DbLoggerCategory.Database.Command.Name
                                 && level == LogLevel.Information)
-                                .AddSerilog(); 
+                                .AddConsole(); 
                           });
 
         public static IServiceCollection AddCustromDbContext(this IServiceCollection services, IConfiguration configuration)

@@ -60,5 +60,17 @@ namespace Ocean.Api.Controllers
             return Ok(AccessToken);
         }
 
+        /// <summary>
+        /// 获取版本信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetVersion")]
+        [AllowAnonymous]
+        public IActionResult GetVersion()
+        {
+            Console.WriteLine("Version===========>1.1");
+            return Ok("current version 1.1");
+        }
+
     }
 }

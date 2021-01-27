@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using Dapper;
 using Ocean.Application.Dapper;
 using Ocean.Application.EventSourcing;
 using Ocean.Application.Interface;
@@ -18,15 +19,19 @@ namespace Ocean.Application.Services
     {
 
         private IMediatorHandler _mediatR;
+        private readonly IMapper _mapper;
         private IEventStoreRepository _eventStoreRepository;
         private IHostilityRepository _hostilityRepository;
 
         public HostilityService(
-            IHostilityRepository hostilityRepository,IMediatorHandler mediatR
+            IHostilityRepository hostilityRepository
+            ,IMediatorHandler mediatR
+            ,IMapper mapper
             ,IEventStoreRepository eventStoreRepository
             ) {
 
             _mediatR = mediatR;
+            _mapper = mapper;
             _eventStoreRepository = eventStoreRepository;
             _hostilityRepository = hostilityRepository;
         }
@@ -56,9 +61,7 @@ namespace Ocean.Application.Services
 
         public async Task AddHostilityInfo(CreateHostilityDto model)
         {
-            var AddCommand = new AddHostilityCommand(model.QQNumber,model.HostilityName,
-                model.RoleLevel,model.MilitaryPower,model.HostilityLevel,model.Remark);
-
+            var AddCommand = _mapper.Map<AddHostilityCommand>(model);
             await _mediatR.SendCommand(AddCommand);
         }
 
